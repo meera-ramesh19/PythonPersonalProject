@@ -95,7 +95,7 @@ def single_insert(conn, insert_req):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-DATABASE_URL = os.environ['HEROKU_POSTGRESQL_BLACK_URL']
+DATABASE_URL = os.environ['HEROKU_POSTGRESQL_BLACK_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
 df.to_sql('historical_data', engine, if_exists='replace')
 """
