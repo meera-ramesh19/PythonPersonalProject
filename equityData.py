@@ -95,7 +95,7 @@ def single_insert(conn, insert_req):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['HEROKU_POSTGRESQL_BLACK_URL']
 conn = connect(DATABASE_URL)
 for i in df.index:
     query = """
