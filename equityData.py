@@ -100,7 +100,7 @@ conn = connect(DATABASE_URL)
 for i in df.index:
     query = """
     INSERT into historical_data(column1, column2, column3, column4, column5, column6, column7, column8) values ('%s', %s, %s, %s, %s, %s, %s, %s);
-    """ % (df["equity"], df["date"], df["Price"], df["Open"], df["High"], df["Low"], df["Volume"], df["Change %"])
+    """ % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(df["Change %"]))
     print("Query", query)
     single_insert(conn, query)
 
