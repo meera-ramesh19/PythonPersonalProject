@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from sqlalchemy import create_engine
 import os 
+import psycopg2
 
 def get_equities():
   
@@ -68,10 +69,47 @@ def get_historical_data(num_companies):
             continue
     return equities_list 
 
+def connect(param):
+    conn = None 
+    try:
+        print('Connecting to Postgres database')
+        conn = psycopg2.connect(param)
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    return conn 
+
+def single_insert(conn, insert_req):
+    cursor = conn.cursor()
+    try:
+        cursor.execute(insert_req)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cursor.close()
+        return 1 
+    cursor.close()
+
+
+
+
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-database_url = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = connect(DATABASE_URL)
+for i in df.index:
+    query = """
+    INSERT into historical_data(column1, column2, column3, column4, column5, column6, column7, column8) values ('%s', %s, %s, %s, %s, %s, %s, %s);
+    """ % (df["equity"], df["date"], df["Price"], df["Open"], df["High"], df["Low"], df["Volume"], df["Change %"])
+    print("Query", query)
+    single_insert(conn, query)
+
+conn.close()
+
+
+"""
 if database_url.startswith('postgres://'):
     database_url.replace('postgres://', 'postgresql://')
 engine = create_engine(database_url)
 df.to_sql('historical_data', engine, if_exists='replace')
+"""
