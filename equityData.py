@@ -70,7 +70,7 @@ def get_historical_data(num_companies):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-database_url = os.environ('DATABASE_URL')
+database_url = os.environ['DATABASE_URL']
 if database_url.startswith('postgres://'):
     database_url.replace('postgres://', 'postgresql://')
 engine = create_engine(database_url)
