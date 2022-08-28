@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from sqlalchemy import create_engine
+import os 
 
 def get_equities():
   
@@ -69,6 +70,8 @@ def get_historical_data(num_companies):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-print(df)
-engine = create_engine('postgresql://postgres@localhost:5432/equity_data')
+database_url = os.environ('DATABASE_URL')
+if database_url.startswith('postgres://'):
+    database_url.replace('postgres://', 'postgresql://')
+engine = create_engine(database_url)
 df.to_sql('historical_data', engine, if_exists='replace')
