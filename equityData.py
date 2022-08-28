@@ -96,16 +96,20 @@ def single_insert(conn, insert_req):
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
 DATABASE_URL = os.environ['HEROKU_POSTGRESQL_BLACK_URL']
+engine = create_engine(DATABASE_URL)
+df.to_sql('historical_data', engine, if_exists='replace')
+"""
+DATABASE_URL = os.environ['HEROKU_POSTGRESQL_BLACK_URL']
 conn = connect(DATABASE_URL)
 for i in df.index:
-    query = """
+    query = 
     INSERT into historical_data(column1, column2, column3, column4, column5, column6, column7, column8) values ('%s', %s, %s, %s, %s, %s, %s, %s);
-    """ % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(df["Change %"]))
+    % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(float(df["Change %"])))
     print("Query", query)
     single_insert(conn, query)
 
 conn.close()
-
+"""
 
 """
 if database_url.startswith('postgres://'):
