@@ -1,1 +1,1 @@
-worker: python equityData.py
+web: python equityData.py
