@@ -90,14 +90,12 @@ def single_insert(conn, insert_req):
         return 1 
     cursor.close()
 
-
-
-
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
 DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
 df.to_sql('historical_data', engine, if_exists='replace')
+
 """
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = connect(DATABASE_URL)
