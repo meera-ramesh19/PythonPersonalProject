@@ -42,7 +42,7 @@ downlaod python from python.org
 
 # Things to add
 
-- Create a `requirements.txt` file to add all the dependencies/packages needed for heroku deployment
+- add .env file 
 
   - pip freeze > requirements.txt
     pip freeze outputs the package and its version installed in the current environment in the form of a configuration file that can be used with pip install -r.
@@ -68,7 +68,9 @@ downlaod python from python.org
     - heroku ps:scale web=1
 
   - To check database has data
-    - heroku pr:psql <database_url>
+  
+    - heroku pg:psql <database_url>
+
     - select \* from historical_data(table name)
 
   ***

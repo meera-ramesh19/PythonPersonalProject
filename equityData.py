@@ -45,7 +45,7 @@ def get_historical_data(num_companies):
             # get the table with historical data 
             table = soup.find("table", class_="datatable_table__2Qbdw datatable_table--border__1hROx datatable_table--mobile-basic__2Up9u datatable_table--freeze-column__2e8u1")
             # extract the headers from the table
-            headers = ["equity", "date", "Price", "Open", "High", "Low", "Volume", "Change %"]
+            headers = ["equity", "date", "Price", "Open", "High", "Low", "Volume", "Change"]
             """
                 for th in table.find_all("th"):
                 buttons = th.find_all("button", class_="inv-button datatable_sort__PtCHP")
