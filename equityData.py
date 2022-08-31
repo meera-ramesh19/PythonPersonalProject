@@ -45,7 +45,7 @@ def get_historical_data(num_companies):
             # get the table with historical data 
             table = soup.find("table", class_="datatable_table__2Qbdw datatable_table--border__1hROx datatable_table--mobile-basic__2Up9u datatable_table--freeze-column__2e8u1")
             # extract the headers from the table
-            headers = ["equity", "date", "Price", "Open", "High", "Low", "Volume", "Change"]
+            headers = ["equity", "date", "price", "open", "high", "low", "volume", "change"]
             """
                 for th in table.find_all("th"):
                 buttons = th.find_all("button", class_="inv-button datatable_sort__PtCHP")
@@ -102,7 +102,7 @@ conn = connect(DATABASE_URL)
 for i in df.index:
     query = 
     INSERT into historical_data(column1, column2, column3, column4, column5, column6, column7, column8) values ('%s', %s, %s, %s, %s, %s, %s, %s);
-    % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(float(df["Change %"])))
+    % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(float(df["Change"])))
     print("Query", query)
     single_insert(conn, query)
 
