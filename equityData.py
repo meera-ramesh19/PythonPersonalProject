@@ -95,7 +95,7 @@ def single_insert(conn, insert_req):
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
 
-df["date"] = pd.to_datetime(df["date"])
+df["date"] = pd.to_datetime(df["date"], format='%m/%d/%Y')
 
 DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
