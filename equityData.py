@@ -61,8 +61,9 @@ def get_historical_data(num_companies):
                     # clean td_text 
                     # TODO: set a varaiable equal to td.text. Clean the variable. pass it in
                     newtd=td.text
-                    newtd.replace(" ", "")
-                    row.append(newtd)
+                    clean_name = newtd.translate({ord(' '): None})
+                    print(df)
+                    row.append(cleantd)
                 if len(row) == 8:
                     data.append(row)
             # create a dataframe for the equity and append it to the list of dataframes
