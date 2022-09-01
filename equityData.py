@@ -45,7 +45,7 @@ def get_historical_data(num_companies):
             # get the table with historical data 
             table = soup.find("table", class_="datatable_table__2Qbdw datatable_table--border__1hROx datatable_table--mobile-basic__2Up9u datatable_table--freeze-column__2e8u1")
             # extract the headers from the table
-            headers = ["equity", "date", "price", "open", "high", "low", "volume", "change"]
+            headers = ["equity", "date", "price", "open", "high", "low", "olume", "change"]
             """
                 for th in table.find_all("th"):
                 buttons = th.find_all("button", class_="inv-button datatable_sort__PtCHP")
@@ -58,7 +58,11 @@ def get_historical_data(num_companies):
             for tr in table.find_all("tr", class_="datatable_row__2vgJl"):
                 row = [equity]
                 for td in tr.find_all("td"):
-                    row.append(td.text)
+                    # clean td_text 
+                    # TODO: set a varaiable equal to td.text. Clean the variable. pass it in
+                    newtd=td.text
+                    newtd.replace(" ", "")
+                    row.append(newtd)
                 if len(row) == 8:
                     data.append(row)
             # create a dataframe for the equity and append it to the list of dataframes
@@ -94,6 +98,7 @@ def single_insert(conn, insert_req):
 df = pd.concat(get_historical_data(10))
 DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
+# TODO: Clean right before and print
 df.to_sql('historical_data', engine, if_exists='replace')
 
 """
