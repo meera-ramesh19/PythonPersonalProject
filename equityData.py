@@ -24,7 +24,7 @@ def get_equities():
         equity = link.find("a").get("title")
         equity_url = "https://www.investing.com" + href
         equities.append((equity, equity_url))
-        print(equities)
+        
     return equities 
 
 def get_historical_data(num_companies):
@@ -60,12 +60,7 @@ def get_historical_data(num_companies):
                 for td in tr.find_all("td"):
                     # clean td_text 
                     # TODO: set a varaiable equal to td.text. Clean the variable. pass it in
-                    newtd=td.text
-                    map_table = newtd.maketrans({' ': None})
-                    clean_name = name.translate(map_table)
-                    print(clean_name)
-                   
-                    row.append(clean_name)
+                    row.append(td.text)
                 if len(row) == 8:
                     data.append(row)
             # create a dataframe for the equity and append it to the list of dataframes
@@ -99,9 +94,10 @@ def single_insert(conn, insert_req):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
+print(df)
 DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
-# TODO: Clean right before and print
+# TODO: Clean right before and
 df.to_sql('historical_data', engine, if_exists='replace')
 
 """
