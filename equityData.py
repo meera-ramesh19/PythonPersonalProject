@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 import os 
 import psycopg2
 
+
 def get_equities():
   
     print("GETTING EQUITIES")
@@ -56,10 +57,9 @@ def get_historical_data(num_companies):
             data = []
             # get all the historical data from the table 
             for tr in table.find_all("tr", class_="datatable_row__2vgJl"):
-                row = [equity]
+                row = [equity.replace(" ","")]
+                print(row[0])
                 for td in tr.find_all("td"):
-                    # clean td_text 
-                    # TODO: set a varaiable equal to td.text. Clean the variable. pass it in
                     row.append(td.text)
                 if len(row) == 8:
                     data.append(row)
@@ -94,7 +94,9 @@ def single_insert(conn, insert_req):
 
 # def write_to_database():
 df = pd.concat(get_historical_data(10))
-print(df)
+
+df["date"] = pd.to_datetime(df["date"])
+
 DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
 engine = create_engine(DATABASE_URL)
 # TODO: Clean right before and
