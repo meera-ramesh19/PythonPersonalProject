@@ -65,7 +65,7 @@ def get_historical_data(num_companies):
                     clean_name = name.translate(map_table)
                     print(clean_name)
                    
-                    row.append(clean)
+                    row.append(clean_name)
                 if len(row) == 8:
                     data.append(row)
             # create a dataframe for the equity and append it to the list of dataframes
