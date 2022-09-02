@@ -60,6 +60,7 @@ def get_historical_data(num_companies):
                 row = [equity.replace(" ","")]
                 print(row[0])
                 for td in tr.find_all("td"):
+                   
                     row.append(td.text)
                 if len(row) == 8:
                     data.append(row)
@@ -93,14 +94,15 @@ def single_insert(conn, insert_req):
     cursor.close()
 
 # def write_to_database():
-df = pd.concat(get_historical_data(10))
+df = pd.concat(get_historical_data(9))
 
 df["date"] = pd.to_datetime(df["date"], format='%m/%d/%Y')
+print(df)
 
-DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
-engine = create_engine(DATABASE_URL)
-# TODO: Clean right before and
-df.to_sql('historical_data', engine, if_exists='replace')
+# DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
+# engine = create_engine(DATABASE_URL)
+# # TODO: Clean right before and
+# df.to_sql('historical_data', engine, if_exists='replace')
 
 """
 DATABASE_URL = os.environ['DATABASE_URL']
