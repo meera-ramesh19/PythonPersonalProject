@@ -99,13 +99,14 @@ df = pd.concat(get_historical_data(9))
 df["date"] = pd.to_datetime(df["date"], format='%m/%d/%Y')
 print(df)
 
-# DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
-# engine = create_engine(DATABASE_URL)
-# # TODO: Clean right before and
-# df.to_sql('historical_data', engine, if_exists='replace')
+DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://')
+engine = create_engine(DATABASE_URL)
+# TODO: Clean right before and
+df.to_sql('historical_data', engine, if_exists='replace')
 
 """
 DATABASE_URL = os.environ['DATABASE_URL']
+
 conn = connect(DATABASE_URL)
 for i in df.index:
     query = 
