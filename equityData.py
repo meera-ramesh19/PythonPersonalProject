@@ -47,13 +47,7 @@ def get_historical_data(num_companies):
             table = soup.find("table", class_="datatable_table__2Qbdw datatable_table--border__1hROx datatable_table--mobile-basic__2Up9u datatable_table--freeze-column__2e8u1")
             # extract the headers from the table
             headers = ["equity", "date", "price", "open", "high", "low", "olume", "change"]
-            """
-                for th in table.find_all("th"):
-                buttons = th.find_all("button", class_="inv-button datatable_sort__PtCHP")
-                for button in buttons:
-                span = button.find_all("span")[0].text
-                headers.append(span)
-            """
+           
             data = []
             # get all the historical data from the table 
             for tr in table.find_all("tr", class_="datatable_row__2vgJl"):
@@ -103,24 +97,9 @@ DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres://', 'postgresql://'
 engine = create_engine(DATABASE_URL)
 # TODO: Clean right before and
 df.to_sql('historical_data', engine, if_exists='replace')
-
 """
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = connect(DATABASE_URL)
-for i in df.index:
-    query = 
-    INSERT into historical_data(column1, column2, column3, column4, column5, column6, column7, column8) values ('%s', %s, %s, %s, %s, %s, %s, %s);
-    % (str(df["equity"]), str(df["date"]), str(df["Price"]), str(df["Open"]), str(df["High"]), str(df["Low"]), str(df["Volume"]), str(float(df["Change"])))
-    print("Query", query)
-    single_insert(conn, query)
-
-conn.close()
-"""
-
-"""
-if database_url.startswith('postgres://'):
-    database_url.replace('postgres://', 'postgresql://')
-engine = create_engine(database_url)
+# def write_to_database():
+#LOCAL equity_data database
+engine = create_engine('postgresql://postgres@localhost:5432/equity_data')
 df.to_sql('historical_data', engine, if_exists='replace')
 """
