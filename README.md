@@ -42,18 +42,20 @@ downlaod python from python.org
 
 # Things to add
 
-- add .env file 
+- add .env file
 
   - pip freeze > requirements.txt
     pip freeze outputs the package and its version installed in the current environment in the form of a configuration file that can be used with pip install -r.
 
   -Create a `runtime.txt` file to specify the version of python installed for heroku deployment
 
-  - python-(your version of python)
+  - python(your version of python)
 
   It specifies the python version for all the packages incase there is some descrepency in the packages used
 
-  - Add a `Procfile` to specify the commands that are executed by the app on startup. You can use a Procfile to declare a variety of process types, including: Your app's web server. Multiple types of worker processes.
+  - Add a `Procfile` to specify the commands that are executed by the app on startup.
+  
+  - You can use a Procfile to declare a variety of process types, including: Your app's web server. Multiple types of worker processes.
 
   - Deploy the app on heroku following this [link](https://devcenter.heroku.com/articles/getting-started-with-python)
 
@@ -68,11 +70,13 @@ downlaod python from python.org
     - heroku ps:scale web=1
 
   - To check database has data
-  
+
     - heroku pg:psql <database_url>
 
     - select \* from historical_data(table name)
 
   ***
+
+# Checkout the repo [PersonalProject}](https://github.com/meera-ramesh19/PersonalProject) for the next part of the project
 
 Have fun testing and improving it! 😎
